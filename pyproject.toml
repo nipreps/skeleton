@@ -102,8 +102,8 @@ test = [
   "pytest-env",
   "pytest-xdist >= 2.5",
 ]
+# Include any dependencies that should be installed into a container
 container = [
-  # Include any dependencies that should be installed into a container
 ]
 
 [project.scripts]
