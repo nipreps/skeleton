@@ -139,6 +139,34 @@ version-file = "src/PROJECT/_version.py"
 #
 # Developer tool configurations
 #
+[tool.mypy]
+ignore_missing_imports = true
+# required to support namespace packages
+# https://github.com/python/mypy/issues/14057
+explicit_package_bases = true
+
+# PyOpenSci recommendations
+strict = true
+warn_unreachable = true
+enable_error_code = [
+  "ignore-without-code",
+  "redundant-expr",
+  "truthy-bool",
+]
+
+[[tool.mypy.overrides]]
+module = [
+  "nipype.*",
+  "seaborn",
+  "nilearn.*",
+  "templateflow.*",
+  "bids.*",
+  "pylab",
+  "mpl_toolkits.*",
+  "nitransforms.*",
+  "IPython.*",
+]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 minversion = "6"
