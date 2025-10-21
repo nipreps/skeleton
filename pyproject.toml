@@ -133,12 +133,34 @@ source = "vcs"
 raw-options = { version_scheme = "nipreps-calver" }
 
 [tool.hatch.build.hooks.vcs]
-version-file = "PROJECT/_version.py"
+version-file = "src/PROJECT/_version.py"
 
 
 #
 # Developer tool configurations
 #
+
+[tool.pytest.ini_options]
+minversion = "6"
+testpaths = ["PROJECT"]
+log_cli_level = "INFO"
+xfail_strict = true
+norecursedirs = [".git"]
+addopts = [
+  "-svx",
+  "-ra",
+  "--strict-config",
+  "--strict-markers",
+  "--doctest-modules",
+  # Config pytest-cov
+  "--cov=PROJECT",
+  "--cov-report=xml",
+  "--cov-config=pyproject.toml",
+]
+doctest_optionflags = "ALLOW_UNICODE NORMALIZE_WHITESPACE ELLIPSIS"
+env = "PYTHONHASHSEED=0"
+filterwarnings = ["ignore::DeprecationWarning"]
+junit_family = "xunit2"
 
 # Recommended configurations are provided for style checkers/formatters,
 # but the tools are disabled to prevent contributors' tools from modifying
@@ -157,3 +179,66 @@ profile = 'black'
 
 [tool.flake8]
 exclude = ['.*', '*']  # DISABLE
+
+[tool.ruff]
+exclude = ['.*', '*']  # DISABLE
+line-length = 99
+
+[tool.ruff.lint]
+extend-select = [
+  "I",
+  "UP",
+  "YTT",
+  "S",
+  "BLE",
+  "B",
+  "A",
+  "C4",
+  # "CPY",
+  "DTZ",
+  "T10",
+  # "EM",
+  "EXE",
+  "FA",
+  "ISC",
+  "ICN",
+  "LOG",
+  "PIE",
+  "PYI",
+  "PT",
+  "Q",
+  # "SIM",
+  # "TID",
+  "FLY",
+  # "PD",
+  "PERF",
+  "W",
+  "PGH",
+  "PLC",
+  "PLE",
+  "PLW",
+  "FURB",
+  "RUF",
+]
+ignore = [
+  "S311",  # We are not using random for cryptographic purposes
+  "S603",
+  "PIE790",
+  "PERF203",
+  "PLC0415",
+  "PLW2901",
+  "RUF005",
+  "RUF012",
+]
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
+
+[tool.ruff.lint.extend-per-file-ignores]
+"*/test_*.py" = ["S101"]
+"*/utils/debug.py" = ["A002", "T100"]
+"docs/conf.py" = ["A001"]
+"docs/sphinxext/github_link.py" = ["BLE001"]
+
+[tool.ruff.format]
+quote-style = "single"
