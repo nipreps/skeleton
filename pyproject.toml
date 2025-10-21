@@ -102,6 +102,12 @@ test = [
   "pytest-env",
   "pytest-xdist >= 2.5",
 ]
+doc = [
+  "sphinx >=8",
+  "furo >=2025"
+  "pydot >= 4",
+  "sphinxcontrib-apidoc >=0.6",
+]
 # Include any dependencies that should be installed into a container
 container = [
 ]
