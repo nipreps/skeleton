@@ -179,7 +179,7 @@ minversion = "6"
 testpaths = ["PROJECT"]
 log_cli_level = "INFO"
 xfail_strict = true
-norecursedirs = [".git"]
+norecursedirs = [".git", "dist", "build", ".tox", ".venv"]
 addopts = [
   "-svx",
   "-ra",
@@ -193,7 +193,14 @@ addopts = [
 ]
 doctest_optionflags = "ALLOW_UNICODE NORMALIZE_WHITESPACE ELLIPSIS"
 env = "PYTHONHASHSEED=0"
-filterwarnings = ["ignore::DeprecationWarning"]
+filterwarnings = [
+	## upstream
+
+	# Ensure ResourceWarnings are emitted
+	"default::ResourceWarning",
+
+	## end upstream
+]
 junit_family = "xunit2"
 
 # Recommended configurations are provided for style checkers/formatters,
