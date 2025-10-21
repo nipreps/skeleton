@@ -104,9 +104,12 @@ test = [
 ]
 doc = [
   "sphinx >=8",
-  "furo >=2025"
-  "pydot >= 4",
+  "furo >=2025",
   "sphinxcontrib-apidoc >=0.6",
+  "sphinx-argparse !=0.5.0",
+  # For nipype workflows
+  "nipype >=1.9",
+  "pydot >=4",
 ]
 # Include any dependencies that should be installed into a container
 container = [
