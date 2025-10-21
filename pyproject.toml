@@ -1,6 +1,6 @@
 [build-system]
 requires = [
-  "hatchling",
+  "hatchling >=1.27",  # SPDX version support
   "hatch-vcs",         # For version interpolation from tags/commit hashes
   "nipreps-versions",  # For the nipreps-calver scheme
 ]
@@ -8,36 +8,79 @@ build-backend = "hatchling.build"
 
 [project]
 name = "PROJECT"
-dynamic = ["version"] description = "PROJECT_DESCRIPTION"
+description = "PROJECT_DESCRIPTION"
+license-files = [
+	"LICENSE"
+]
 readme = "README.md"
-authors = [{name = "The NiPreps Developers", email = "nipreps@gmail.com"}]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Image Recognition",
-    "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
 ]
-license = {file = "LICENSE"}
-requires-python = ">=3.10"  # SPEC0, consider pre-EOL for libraries
+
+# Should generally be stable
+dynamic = ["version"]
+authors = [{name = "The NiPreps Developers", email = "nipreps@gmail.com"}]
+license = "Apache-2.0"
+
+# Choose one of the following, remove the other, then remove the [tool.spec0*] header
+# SPEC-0 is the Scientific Python coordinated deprecation schedule.
+# Generally we will want to use this.
+# https://scientific-python.org/specs/spec-0000/
+[tool.spec0]
+
+# Updated October 2025; these should generally be updated quarterly
+requires-python = ">=3.12"
 dependencies = [
-  # Backports, remove if unused
-  "tomli; python_version < '3.11'",
-  "importlib_resources >=5.12; python_version < '3.12'",
-  "importlib_metadata >=6.5; python_version < '3.12'",
-  # SPEC0, remove if otherwise not in dependency graph
-  "numpy >=1.23",
-  "scipy >=1.9",
-  "matplotlib >=3.6",
-  "pandas >=1.5",
-  "scikit-image >=0.20",
-  "networkx >=2.7",
-  "scikit-learn >=1.1",
+  "numpy >=2.0",
+  "scipy >=1.12",
+  "matplotlib >=3.9",
+  "pandas >=2.2",
+  "scikit-image >=0.23",
+  "networkx >=3.3",
+  "scikit-learn >=1.4",
+  "seaborn >=0.13",
+  # nipy and friends
+  "nibabel >=5.2",
+  "nipype >=1.9",
+  "nilearn >=0.10",
+  "nitransforms >=24.0",
+  "pybids >= 0.17",
   # Common nipreps stack following 2 year minor series support
-  "nibabel >=4.0",
-  "nipype >=1.8",
-  "pybids >= 0.15",
+  "acres >=0.5",
+  "templateflow >=24.0",
+]
+
+# speczeroplus follows SPEC-0 with the modification that Python is supported
+# until its EOL, and base packages are supported for an additional year.
+# This schedule was adopted by nibabel and several other packages.
+# It is appropriate for libraries that we expect to receive broad usage,
+# not end-user applications.
+[tool.spec0plus]
+
+# Updated October 2025; these should generally be updated quarterly
+requires-python = ">=3.10"
+dependencies = [
+  "numpy >=1.24",
+  "scipy >=1.10",
+  "matplotlib >=3.7",
+  "pandas >=2.0",
+  "scikit-image >=0.20",
+  "networkx >=3.0",
+  "scikit-learn >=1.2",
+  "seaborn >=0.13",
+  # nipy and friends
+  "nibabel >=5.0",
+  "nipype >=1.9",
+  "nilearn >=0.10",
+  "nitransforms >=23.0",
+  "pybids >= 0.16",
+  # Common nipreps stack following 2 year minor series support
+  "acres >=0.5",
+  "templateflow >=23.0",
 ]
 
 [project.urls]
@@ -50,10 +93,14 @@ Documentation = "https://PROJECT.readthedocs.io"
 NiPreps = "https://www.nipreps.org/"
 
 [project.optional-dependencies]
+# These can generally be ratcheted forward, as long as they don't become
+# incompatible with the speczeroplus requires-python minimum
 test = [
-  "pytest >=6",
-  "pytest-cov",
+  "coverage[toml] >= 7",
+  "pytest >= 8.1",
+  "pytest-cov >= 2.11",
   "pytest-env",
+  "pytest-xdist >= 2.5",
 ]
 container = [
   # Include any dependencies that should be installed into a container
