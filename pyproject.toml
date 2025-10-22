@@ -130,7 +130,7 @@ allow-direct-references = true  # Enables dependency to use "package @ URL"
 exclude = [".git_archival.txt"]  # No longer needed in sdist
 
 [tool.hatch.build.targets.wheel]
-packages = ["PROJECT"]
+packages = ["src/PROJECT"]
 exclude = [
     "PROJECT/data/tests/work",  # Large test data directory
 ]
