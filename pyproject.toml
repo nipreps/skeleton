@@ -127,7 +127,10 @@ container = [
 allow-direct-references = true  # Enables dependency to use "package @ URL"
 
 [tool.hatch.build.targets.sdist]
-exclude = [".git_archival.txt"]  # No longer needed in sdist
+exclude = [
+	".git_archival.txt",  # No longer needed in sdist
+	"tests/data/datasets",  # Exclude test datasets
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/PROJECT"]
