@@ -1,8 +1,28 @@
 version: 2
 updates:
-  - package-ecosystem: "pip"
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
-    allow:
-      - dependency-type: "all"
+      interval: "weekly"
+    groups:
+      actions-infrastructure:
+        patterns:
+          - "actions/*"
+    cooldown:
+      default-days: 7
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+  - package-ecosystem: uv
+    directory: "/"
+    schedule:
+      interval: weekly
+    groups:
+      uv:
+        patterns:
+          - "*"
+    cooldown:
+      default-days: 7
