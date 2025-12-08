@@ -1,4 +1,4 @@
-name: tests
+name: Python
 
 on:
   push:
@@ -68,11 +68,19 @@ jobs:
         - '3.12'
         - '3.13'
         - '3.14'
-        depencencies: ['latest']
+        # /SPEC0
+        dependencies: ['latest']
         include:
+        # SPEC0+
           - os: ubuntu-latest
-            python-version: '3.10'  # or '3.12'  # (SPEC0)
+            python-version: '3.10'
             dependencies: 'min'
+        # /SPEC0+
+        # SPEC0
+          - os: ubuntu-latest
+            python-version: '3.12'
+            dependencies: 'min'
+        # /SPEC0
     runs-on: ${{ matrix.os }}
     env:
       DEPENDS: ${{ matrix.dependencies }}
@@ -81,15 +89,13 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
+          persist-credentials: false
           submodules: recursive
           fetch-depth: 0
-      - name: Setup Python
-        uses: actions/setup-python@v4
+      - name: Install the latest version of uv
+        uses: astral-sh/setup-uv@v7
         with:
           python-version: ${{ matrix.python }}
-          allow-prereleases: true
-      - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@v6
       - name: Install tox
         run: uv tool install tox --with=tox-uv --with=tox-gh-actions
       - name: Show tox config
