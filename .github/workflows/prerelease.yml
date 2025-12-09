@@ -50,13 +50,13 @@ jobs:
       DEPENDS: pre
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
         with:
           persist-credentials: false
           submodules: recursive
           fetch-depth: 0
       - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@ed21f2f24f8dd64503750218de024bcf64c7250a # v7
         with:
           python-version: ${{ matrix.python }}
       - name: Install tox
@@ -67,7 +67,7 @@ jobs:
         run: tox run -vv --notest --skip-missing-interpreters false
       - name: Run tox
         run: tox --skip-pkg-install --exit-and-dump-after 1200
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@5a1091511ad55cbe89839c7260b706298ca349f7 # v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
         if: ${{ always() }}
