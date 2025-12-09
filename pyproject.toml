@@ -26,7 +26,38 @@ dynamic = ["version"]
 authors = [{name = "The NiPreps Developers", email = "nipreps@gmail.com"}]
 license = "Apache-2.0"
 
-# Choose one of the following, remove the other, then remove the [tool.spec0*] header
+# The requires-python and dependencies sections should follow either SPEC-0
+# or speczeroplus. The default here is speczeroplus. To switch to SPEC-0,
+# delete the following lines up to and including the line reading [tool.spec0].
+
+# speczeroplus follows SPEC-0 with the modification that Python is supported
+# until its EOL, and base packages are supported for three years instead of two.
+# This schedule was adopted by nibabel and several other packages.
+# It is appropriate for libraries that we expect to receive broad usage,
+# not end-user applications.
+
+# Updated October 2025; these should generally be updated quarterly
+requires-python = ">=3.10"
+dependencies = [
+  "numpy >=1.24",
+  "scipy >=1.10",
+  "matplotlib >=3.7",
+  "pandas >=2.0",
+  "scikit-image >=0.20",
+  "networkx >=3.0",
+  "scikit-learn >=1.2",
+  "seaborn >=0.13",
+  # nipy and friends
+  "nibabel >=5.0",
+  "nipype >=1.9",
+  "nilearn >=0.10",
+  "nitransforms >=23.0",
+  "pybids >= 0.16",
+  # Common nipreps stack following 2 year minor series support
+  "acres >=0.5",
+  "templateflow >=23.0",
+]
+
 # SPEC-0 is the Scientific Python coordinated deprecation schedule.
 # Generally we will want to use this.
 # https://scientific-python.org/specs/spec-0000/
@@ -52,35 +83,6 @@ dependencies = [
   # Common nipreps stack following 2 year minor series support
   "acres >=0.5",
   "templateflow >=24.0",
-]
-
-# speczeroplus follows SPEC-0 with the modification that Python is supported
-# until its EOL, and base packages are supported for an additional year.
-# This schedule was adopted by nibabel and several other packages.
-# It is appropriate for libraries that we expect to receive broad usage,
-# not end-user applications.
-[tool.spec0plus]
-
-# Updated October 2025; these should generally be updated quarterly
-requires-python = ">=3.10"
-dependencies = [
-  "numpy >=1.24",
-  "scipy >=1.10",
-  "matplotlib >=3.7",
-  "pandas >=2.0",
-  "scikit-image >=0.20",
-  "networkx >=3.0",
-  "scikit-learn >=1.2",
-  "seaborn >=0.13",
-  # nipy and friends
-  "nibabel >=5.0",
-  "nipype >=1.9",
-  "nilearn >=0.10",
-  "nitransforms >=23.0",
-  "pybids >= 0.16",
-  # Common nipreps stack following 2 year minor series support
-  "acres >=0.5",
-  "templateflow >=23.0",
 ]
 
 [project.urls]
