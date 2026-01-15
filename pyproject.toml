@@ -211,11 +211,33 @@ filterwarnings = [
 ]
 junit_family = "xunit2"
 
+[tool.coverage.run]
+branch = true
+source = ["src", "tests"]
+omit = [
+    '*/.tox/*',
+    '*/_version.py'
+]
+relative_files = true
+
+[tool.coverage.paths]
+source = [
+  "src/PROJECT",
+  "*/site-packages/PROJECT",
+]
+
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_also = [
+    'raise NotImplementedError',
+    'warnings\.warn',
+    'if.*TYPE_CHECKING:',
+]
+
 # Recommended configurations are provided for style checkers/formatters,
 # but the tools are disabled to prevent contributors' tools from modifying
 # without following local guidelines.
 # To adopt a convention, remove the DISABLE line.
-# Note that ruff is configured in ruff.toml
 
 [tool.black]
 exclude = ".*"  # DISABLE
