@@ -150,5 +150,7 @@ jobs:
         run: uv tool install tox --with=tox-uv
       - name: Show tox config
         run: tox c -e ${{ matrix.check }}
+      - name: Setup check environment
+        run: tox run -vv --notest -e ${{ matrix.check }}
       - name: Run check
-        run: tox -e ${{ matrix.check }}
+        run: tox run --skip-pkg-install -e ${{ matrix.check }}
