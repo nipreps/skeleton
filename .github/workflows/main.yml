@@ -39,7 +39,7 @@ env:
 jobs:
   build:
     name: Build & verify package
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
     permissions:
       attestations: write
       id-token: write
@@ -132,7 +132,7 @@ jobs:
 
   checks:
     name: Contribution checks
-    runs-on: 'ubuntu-latest'
+    runs-on: ubuntu-slim
     strategy:
       fail-fast: false
       matrix:
