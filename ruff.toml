@@ -1,0 +1,51 @@
+line-length = 99
+
+[lint]
+extend-select = [
+  "I",     # isort (import sorting)
+  "UP",    # pyupgrade (Python syntax upgrades)
+  "YTT",   # flake8-2020 (sys.version misuse)
+  "S",     # flake8-bandit (security)
+  "BLE",   # flake8-blind-except (blind except)
+  "B",     # flake8-bugbear (common bugs and design issues)
+  "A",     # flake8-builtins (builtin shadowing)
+  "C4",    # flake8-comprehensions (unnecessary comprehensions)
+  "DTZ",   # flake8-datetimez (timezone-naive datetime usage)
+  "T10",   # flake8-debugger (debugger imports and calls)
+  "EXE",   # flake8-executable (shebang and executable permissions)
+  "FA",    # flake8-future-annotations (future annotations)
+  "ISC",   # flake8-implicit-str-concat (implicit string concatenation)
+  "ICN",   # flake8-import-conventions (import naming conventions)
+  "LOG",   # flake8-logging (logging best practices)
+  "PYI",   # flake8-pyi (type stub files)
+  "PT",    # flake8-pytest-style (pytest style)
+  "Q",     # flake8-quotes (quote style consistency)
+  "W",     # pycodestyle (warnings)
+  "PGH",   # pygrep-hooks (grep-based checks)
+  "PLC",   # Pylint (convention)
+  "PLE",   # Pylint (errors)
+  "PLW",   # Pylint (warnings)
+  "PERF",  # Perflint (performance anti-patterns)
+  "FLY",   # flynt (f-string conversion)
+  "FURB",  # refurb (code modernization)
+  "RUF",   # Ruff-specific rules
+]
+ignore = [
+  "S311",    # Not using random for cryptographic purposes
+  "S603",    # subprocess call without shell=True check
+  "PLC0415", # import outside top-level (common in lazy imports)
+  "PLW2901", # outer variable overwritten by inner loop target
+  "RUF005",  # collection literal concatenation (preference for [*a])
+  "RUF012",  # mutable class default (common in dataclass-like patterns)
+]
+
+[lint.flake8-quotes]
+inline-quotes = "single"
+
+[lint.extend-per-file-ignores]
+"*/test_*.py" = ["S101"]
+"*/__init__.py" = ["F401"]
+"docs/conf.py" = ["A001"]
+
+[format]
+quote-style = "single"
